@@ -37,7 +37,9 @@ def convert_to_parquet(raw_filename, parquet_filename):
 def upload_to_gcs(filename, destination):
     print(f"\tUploading to GCS {filename} in {destination}...")
 
-    credentials = service_account.Credentials.from_service_account_file(os.getenv("p"))
+    credentials = service_account.Credentials.from_service_account_file(
+        os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    )
     client = storage.Client(project=PROJECT_ID, credentials=credentials)
     bucket = client.bucket(BUCKET_NAME)
     blob = bucket.blob(destination)
